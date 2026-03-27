@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NFTverse - 移动端</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #22d3ee;
+            --accent-pink: #f472b6;
+            --dark-bg: #0a0a0f;
+            --card-bg: #12121a;
+            --card-bg-hover: #1a1a25;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --border: #2a2a3a;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient2: linear-gradient(135deg, #22d3ee 0%, #6366f1 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            height: 44px;
+            background: rgba(10, 10, 15, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 12px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .battery {
+            width: 24px;
+            height: 12px;
+            border: 1px solid var(--text-secondary);
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .battery::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 5px;
+            background: var(--text-secondary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .battery::before {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            bottom: 2px;
+            width: 16px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+
+        /* 顶部搜索 */
+        .top-bar {
+            padding: 60px 16px 16px;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, transparent 100%);
+            position: sticky;
+            top: 44px;
+            z-index: 100;
+        }
+
+        .search-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* 用户信息 */
+        .user-section {
+            padding: 16px;
+        }
+
+        .user-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .user-id {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* 资产概览 */
+        .assets-card {
+            margin: 16px;
+            background: var(--gradient);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .assets-label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .assets-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .assets-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .assets-btn {
+            flex: 1;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* 功能图标 */
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .icon-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* NFT推荐 */
+        .section {
+            padding: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .section-more {
+            font-size: 12px;
+            color: var(--primary);
+        }
+
+        .nft-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+
+        .nft-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nft-card {
+            flex-shrink: 0;
+            width: 140px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .nft-img {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .nft-info {
+            padding: 10px;
+        }
+
+        .nft-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nft-price {
+            font-size: 11px;
+            color: var(--accent);
+        }
+
+        /* 热门市场 */
+        .market-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .market-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .market-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .market-info {
+            flex: 1;
+        }
+
+        .market-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .market-floor {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .market-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* 底部导航 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: var(--primary);
+        }
+
+        .tab-icon {
+            font-size: 20px;
+        }
+
+        /* 弹窗提示 */
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 14px;
+            z-index: 2000;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-right">
+            <span>📶</span>
+            <span>5G</span>
+            <div class="battery"></div>
+        </div>
+    </div>
+
+    <!-- 顶部搜索 -->
+    <div class="top-bar">
+        <div class="search-box">
+            <span>🔍</span>
+            <span>搜索NFT、合集...</span>
+        </div>
+    </div>
+
+    <!-- 用户信息 -->
+    <div class="user-section">
+        <div class="user-card">
+            <div class="avatar">👤</div>
+            <div class="user-info">
+                <div class="user-name">CryptoMaster</div>
+                <div class="user-id">ID: 0x1234...5678</div>
+            </div>
+            <button class="btn-primary">连接钱包</button>
+        </div>
+    </div>
+
+    <!-- 资产概览 -->
+    <div class="assets-card">
+        <div class="assets-label">总资产 (USD)</div>
+        <div class="assets-value">$128,450</div>
+        <div class="assets-btns">
+            <button class="assets-btn">充值</button>
+            <button class="assets-btn">提现</button>
+            <button class="assets-btn">转账</button>
+        </div>
+    </div>
+
+    <!-- 功能图标 -->
+    <div class="icons-grid">
+        <div class="icon-item">
+            <div class="icon-box">🖼️</div>
+            <span class="icon-label">NFT</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">💰</div>
+            <span class="icon-label">充值</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">📤</div>
+            <span class="icon-label">提现</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">🎁</div>
+            <span class="icon-label">邀请</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">📊</div>
+            <span class="icon-label">记录</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">⭐</div>
+            <span class="icon-label">收藏</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">🎨</div>
+            <span class="icon-label">铸造</span>
+        </div>
+        <div class="icon-item">
+            <div class="icon-box">⚙️</div>
+            <span class="icon-label">设置</span>
+        </div>
+    </div>
+
+    <!-- 推荐NFT -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-title">推荐NFT</span>
+            <span class="section-more">查看全部 →</span>
+        </div>
+        <div class="nft-scroll">
+            <div class="nft-card">
+                <div class="nft-img">🦄</div>
+                <div class="nft-info">
+                    <div class="nft-name">Cosmic Unicorn</div>
+                    <div class="nft-price">2.5 ETH</div>
+                </div>
+            </div>
+            <div class="nft-card">
+                <div class="nft-img">🐼</div>
+                <div class="nft-info">
+                    <div class="nft-name">Pudgy Bear</div>
+                    <div class="nft-price">1.8 ETH</div>
+                </div>
+            </div>
+            <div class="nft-card">
+                <div class="nft-img">🚀</div>
+                <div class="nft-info">
+                    <div class="nft-name">Space Rocket</div>
+                    <div class="nft-price">0.9 ETH</div>
+                </div>
+            </div>
+            <div class="nft-card">
+                <div class="nft-img">💎</div>
+                <div class="nft-info">
+                    <div class="nft-name">Diamond</div>
+                    <div class="nft-price">5.0 ETH</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 热门市场 -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-title">热门市场</span>
+            <span class="section-more">查看全部 →</span>
+        </div>
+        <div class="market-list">
+            <div class="market-item">
+                <div class="market-img">🦄</div>
+                <div class="market-info">
+                    <div class="market-name">Unicornverse</div>
+                    <div class="market-floor">Floor: 2.5 ETH</div>
+                </div>
+                <div class="market-price">2.5 ETH</div>
+            </div>
+            <div class="market-item">
+                <div class="market-img">🐼</div>
+                <div class="market-info">
+                    <div class="market-name">Pudgy Animals</div>
+                    <div class="market-floor">Floor: 1.8 ETH</div>
+                </div>
+                <div class="market-price">1.8 ETH</div>
+            </div>
+            <div class="market-item">
+                <div class="market-img">👾</div>
+                <div class="market-info">
+                    <div class="market-name">Pixel Monsters</div>
+                    <div class="market-floor">Floor: 0.9 ETH</div>
+                </div>
+                <div class="market-price">0.9 ETH</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="tab-bar">
+        <div class="tab-item active">
+            <span class="tab-icon">🏠</span>
+            <span>首页</span>
+        </div>
+        <div class="tab-item">
+            <span class="tab-icon">🛍️</span>
+            <span>市场</span>
+        </div>
+        <div class="tab-item">
+            <span class="tab-icon">💎</span>
+            <span>质押</span>
+        </div>
+        <div class="tab-item">
+            <span class="tab-icon">👤</span>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">功能开发中...</div>
+
+    <script>
+        document.querySelectorAll('.tab-item').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.icon-item, .assets-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
