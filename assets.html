@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资产中心 - NFTverse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #22d3ee;
+            --accent-pink: #f472b6;
+            --dark-bg: #0a0a0f;
+            --card-bg: #12121a;
+            --card-bg-hover: #1a1a25;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --border: #2a2a3a;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient2: linear-gradient(135deg, #22d3ee 0%, #6366f1 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-effects::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(244, 114, 182, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: var(--card-bg);
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 40px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .page-header h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .page-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* 资产概览 */
+        .assets-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .asset-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .asset-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--gradient);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .asset-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .asset-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .asset-change {
+            font-size: 14px;
+            color: #10b981;
+        }
+
+        .asset-change.negative {
+            color: #ef4444;
+        }
+
+        /* 图表区域 */
+        .chart-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.3) 0%, transparent 100%);
+            clip-path: polygon(0 100%, 0 60%, 10% 70%, 20% 40%, 30% 55%, 40% 30%, 50% 45%, 60% 20%, 70% 35%, 80% 15%, 90% 25%, 100% 10%, 100% 100%);
+        }
+
+        /* NFT资产 */
+        .nft-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .nft-item {
+            background: var(--card-bg-hover);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .nft-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+        }
+
+        .nft-img {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .nft-info {
+            padding: 12px;
+        }
+
+        .nft-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .nft-price {
+            color: var(--accent);
+            font-size: 12px;
+        }
+
+        /* 交易记录 */
+        .transactions-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 32px;
+        }
+
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .transaction-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .tx-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .tx-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gradient2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tx-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .tx-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .tx-amount {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .tx-amount.positive {
+            color: #10b981;
+        }
+
+        .tx-amount.negative {
+            color: #ef4444;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 1024px) {
+            .assets-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nft-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .container {
+                padding: 80px 20px 20px;
+            }
+            .assets-overview {
+                grid-template-columns: 1fr;
+            }
+            .nft-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects"></div>
+
+    <nav class="navbar">
+        <div class="logo">NFTverse</div>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="market.html">市场</a></li>
+            <li><a href="stake.html">质押</a></li>
+            <li><a href="#">预约</a></li>
+            <li><a href="profile.html">资产中心</a></li>
+            <li><a href="#">帮助中心</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn btn-ghost">搜索</button>
+            <button class="btn btn-primary">连接钱包</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>我的<span>资产</span>中心</h1>
+            <p>全面了解您的加密资产和NFT投资组合</p>
+        </div>
+
+        <!-- 资产概览 -->
+        <div class="assets-overview">
+            <div class="asset-card">
+                <div class="asset-icon">💵</div>
+                <div class="asset-name">总资产 (USD)</div>
+                <div class="asset-value">$128,450</div>
+                <div class="asset-change">+12.5%</div>
+            </div>
+            <div class="asset-card">
+                <div class="asset-icon">⟠</div>
+                <div class="asset-name">ETH 余额</div>
+                <div class="asset-value">45.8 ETH</div>
+                <div class="asset-change">+8.3%</div>
+            </div>
+            <div class="asset-card">
+                <div class="asset-icon">🖼️</div>
+                <div class="asset-name">NFT 数量</div>
+                <div class="asset-value">128</div>
+                <div class="asset-change">+15</div>
+            </div>
+            <div class="asset-card">
+                <div class="asset-icon">💎</div>
+                <div class="asset-name">NFT 价值</div>
+                <div class="asset-value">$68,200</div>
+                <div class="asset-change">+18.7%</div>
+            </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="chart-section">
+            <div class="section-title">
+                <span>资产走势</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-ghost" style="padding: 6px 12px; font-size: 12px;">24小时</button>
+                    <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;">7天</button>
+                    <button class="btn btn-ghost" style="padding: 6px 12px; font-size: 12px;">30天</button>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <div class="chart-line"></div>
+            </div>
+        </div>
+
+        <!-- NFT资产 -->
+        <div class="nft-section">
+            <div class="section-title">
+                <span>我的NFT藏品</span>
+                <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">查看全部</button>
+            </div>
+            <div class="nft-grid">
+                <div class="nft-item">
+                    <div class="nft-img">🦄</div>
+                    <div class="nft-info">
+                        <div class="nft-name">Cosmic Unicorn #1</div>
+                        <div class="nft-price">2.5 ETH</div>
+                    </div>
+                </div>
+                <div class="nft-item">
+                    <div class="nft-img">🐼</div>
+                    <div class="nft-info">
+                        <div class="nft-name">Pudgy Bear #2</div>
+                        <div class="nft-price">1.8 ETH</div>
+                    </div>
+                </div>
+                <div class="nft-item">
+                    <div class="nft-img">🐱</div>
+                    <div class="nft-info">
+                        <div class="nft-name">Meebit Cat #3</div>
+                        <div class="nft-price">3.2 ETH</div>
+                    </div>
+                </div>
+                <div class="nft-item">
+                    <div class="nft-img">🚀</div>
+                    <div class="nft-info">
+                        <div class="nft-name">Space Rocket #88</div>
+                        <div class="nft-price">0.9 ETH</div>
+                    </div>
+                </div>
+                <div class="nft-item">
+                    <div class="nft-img">💎</div>
+                    <div class="nft-info">
+                        <div class="nft-name">Diamond #256</div>
+                        <div class="nft-price">5.0 ETH</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 交易记录 -->
+        <div class="transactions-section">
+            <div class="section-title">
+                <span>最近交易</span>
+                <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">查看全部</button>
+            </div>
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="tx-info">
+                        <div class="tx-icon">🛒</div>
+                        <div>
+                            <div class="tx-title">购买 Star Atlas #1024</div>
+                            <div class="tx-time">2小时前</div>
+                        </div>
+                    </div>
+                    <div class="tx-amount negative">-2.5 ETH</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="tx-info">
+                        <div class="tx-icon">💵</div>
+                        <div>
+                            <div class="tx-title">出售 Fire Dragon #256</div>
+                            <div class="tx-time">昨天</div>
+                        </div>
+                    </div>
+                    <div class="tx-amount positive">+1.8 ETH</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="tx-info">
+                        <div class="tx-icon">📥</div>
+                        <div>
+                            <div class="tx-title">收到转账</div>
+                            <div class="tx-time">3天前</div>
+                        </div>
+                    </div>
+                    <div class="tx-amount positive">+10.0 ETH</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="tx-info">
+                        <div class="tx-icon">🔄</div>
+                        <div>
+                            <div class="tx-title">质押收益</div>
+                            <div class="tx-time">5天前</div>
+                        </div>
+                    </div>
+                    <div class="tx-amount positive">+0.32 ETH</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">服务条款</a>
+                <a href="#">隐私政策</a>
+                <a href="#">帮助中心</a>
+                <a href="#">联系我们</a>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 14px;">
+                © 2024 NFTverse. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
