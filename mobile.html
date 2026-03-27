@@ -31,10 +31,9 @@
             background: var(--dark-bg);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-bottom: 80px;
+            padding-bottom: 70px;
         }
 
-        /* 状态栏 */
         .status-bar {
             height: 44px;
             background: rgba(10, 10, 15, 0.95);
@@ -48,18 +47,6 @@
             left: 0;
             right: 0;
             z-index: 1000;
-        }
-
-        .status-left {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .status-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .battery {
@@ -93,7 +80,14 @@
             border-radius: 1px;
         }
 
-        /* 顶部搜索 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
         .top-bar {
             padding: 60px 16px 16px;
             background: linear-gradient(180deg, var(--dark-bg) 0%, transparent 100%);
@@ -114,7 +108,6 @@
             font-size: 14px;
         }
 
-        /* 用户信息 */
         .user-section {
             padding: 16px;
         }
@@ -165,7 +158,6 @@
             font-size: 12px;
         }
 
-        /* 资产概览 */
         .assets-card {
             margin: 16px;
             background: var(--gradient);
@@ -201,7 +193,6 @@
             font-weight: 600;
         }
 
-        /* 功能图标 */
         .icons-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -234,7 +225,6 @@
             color: var(--text-secondary);
         }
 
-        /* NFT推荐 */
         .section {
             padding: 16px;
         }
@@ -305,7 +295,6 @@
             color: var(--accent);
         }
 
-        /* 热门市场 */
         .market-list {
             display: flex;
             flex-direction: column;
@@ -354,6 +343,261 @@
             color: var(--accent);
         }
 
+        /* 质押页面 */
+        .stake-hero {
+            margin: 16px;
+            background: var(--gradient);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stake-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .stake-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stake-apr {
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .stake-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stake-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 16px;
+        }
+
+        .stake-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stake-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .stake-badge {
+            background: var(--gradient);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .stake-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .stake-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stake-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stake-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* 预约页面 */
+        .reserve-hero {
+            margin: 16px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .reserve-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .reserve-countdown {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 16px 0;
+        }
+
+        .reserve-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .reserve-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .reserve-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .reserve-info {
+            flex: 1;
+        }
+
+        .reserve-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .reserve-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .reserve-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* 我的页面 */
+        .profile-header {
+            padding: 16px;
+            background: var(--gradient);
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 12px;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .profile-id {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .profile-stat-label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .profile-menu {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .menu-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .menu-arrow {
+            color: var(--text-secondary);
+        }
+
         /* 底部导航 */
         .tab-bar {
             position: fixed;
@@ -389,7 +633,6 @@
             font-size: 20px;
         }
 
-        /* 弹窗提示 */
         .toast {
             position: fixed;
             top: 50%;
@@ -416,194 +659,222 @@
     </style>
 </head>
 <body>
-    <!-- 状态栏 -->
     <div class="status-bar">
-        <div class="status-left">
-            <span>9:41</span>
-        </div>
+        <div><span>9:41</span></div>
         <div class="status-right">
-            <span>📶</span>
-            <span>5G</span>
+            <span>📶</span><span>5G</span>
             <div class="battery"></div>
         </div>
     </div>
 
-    <!-- 顶部搜索 -->
-    <div class="top-bar">
-        <div class="search-box">
-            <span>🔍</span>
-            <span>搜索NFT、合集...</span>
+    <!-- 首页 -->
+    <div class="page active" id="page-home">
+        <div class="top-bar">
+            <div class="search-box"><span>🔍</span><span>搜索NFT，合集...</span></div>
         </div>
-    </div>
-
-    <!-- 用户信息 -->
-    <div class="user-section">
-        <div class="user-card">
-            <div class="avatar">👤</div>
-            <div class="user-info">
-                <div class="user-name">CryptoMaster</div>
-                <div class="user-id">ID: 0x1234...5678</div>
-            </div>
-            <button class="btn-primary">连接钱包</button>
-        </div>
-    </div>
-
-    <!-- 资产概览 -->
-    <div class="assets-card">
-        <div class="assets-label">总资产 (USD)</div>
-        <div class="assets-value">$128,450</div>
-        <div class="assets-btns">
-            <button class="assets-btn">充值</button>
-            <button class="assets-btn">提现</button>
-            <button class="assets-btn">转账</button>
-        </div>
-    </div>
-
-    <!-- 功能图标 -->
-    <div class="icons-grid">
-        <div class="icon-item">
-            <div class="icon-box">🖼️</div>
-            <span class="icon-label">NFT</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">💰</div>
-            <span class="icon-label">充值</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">📤</div>
-            <span class="icon-label">提现</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">🎁</div>
-            <span class="icon-label">邀请</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">📊</div>
-            <span class="icon-label">记录</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">⭐</div>
-            <span class="icon-label">收藏</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">🎨</div>
-            <span class="icon-label">铸造</span>
-        </div>
-        <div class="icon-item">
-            <div class="icon-box">⚙️</div>
-            <span class="icon-label">设置</span>
-        </div>
-    </div>
-
-    <!-- 推荐NFT -->
-    <div class="section">
-        <div class="section-header">
-            <span class="section-title">推荐NFT</span>
-            <span class="section-more">查看全部 →</span>
-        </div>
-        <div class="nft-scroll">
-            <div class="nft-card">
-                <div class="nft-img">🦄</div>
-                <div class="nft-info">
-                    <div class="nft-name">Cosmic Unicorn</div>
-                    <div class="nft-price">2.5 ETH</div>
+        <div class="user-section">
+            <div class="user-card">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <div class="user-name">CryptoMaster</div>
+                    <div class="user-id">ID: 0x1234...5678</div>
                 </div>
+                <button class="btn-primary">连接钱包</button>
             </div>
-            <div class="nft-card">
-                <div class="nft-img">🐼</div>
-                <div class="nft-info">
-                    <div class="nft-name">Pudgy Bear</div>
-                    <div class="nft-price">1.8 ETH</div>
-                </div>
+        </div>
+        <div class="assets-card">
+            <div class="assets-label">总资产 (USD)</div>
+            <div class="assets-value">$128,450</div>
+            <div class="assets-btns">
+                <button class="assets-btn">充值</button>
+                <button class="assets-btn">提现</button>
+                <button class="assets-btn">转账</button>
             </div>
-            <div class="nft-card">
-                <div class="nft-img">🚀</div>
-                <div class="nft-info">
-                    <div class="nft-name">Space Rocket</div>
-                    <div class="nft-price">0.9 ETH</div>
-                </div>
+        </div>
+        <div class="icons-grid">
+            <div class="icon-item"><div class="icon-box">🖼️</div><span class="icon-label">NFT</span></div>
+            <div class="icon-item"><div class="icon-box">💰</div><span class="icon-label">充值</span></div>
+            <div class="icon-item"><div class="icon-box">📤</div><span class="icon-label">提现</span></div>
+            <div class="icon-item"><div class="icon-box">🎁</div><span class="icon-label">邀请</span></div>
+            <div class="icon-item"><div class="icon-box">📊</div><span class="icon-label">记录</span></div>
+            <div class="icon-item"><div class="icon-box">⭐</div><span class="icon-label">收藏</span></div>
+            <div class="icon-item"><div class="icon-box">🎨</div><span class="icon-label">铸造</span></div>
+            <div class="icon-item"><div class="icon-box">⚙️</div><span class="icon-label">设置</span></div>
+        </div>
+        <div class="section">
+            <div class="section-header"><span class="section-title">推荐NFT</span><span class="section-more">查看全部 →</span></div>
+            <div class="nft-scroll">
+                <div class="nft-card"><div class="nft-img">🦄</div><div class="nft-info"><div class="nft-name">Cosmic Unicorn</div><div class="nft-price">2.5 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">🐼</div><div class="nft-info"><div class="nft-name">Pudgy Bear</div><div class="nft-price">1.8 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">🚀</div><div class="nft-info"><div class="nft-name">Space Rocket</div><div class="nft-price">0.9 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">💎</div><div class="nft-info"><div class="nft-name">Diamond</div><div class="nft-price">5.0 ETH</div></div></div>
             </div>
-            <div class="nft-card">
-                <div class="nft-img">💎</div>
-                <div class="nft-info">
-                    <div class="nft-name">Diamond</div>
-                    <div class="nft-price">5.0 ETH</div>
-                </div>
+        </div>
+        <div class="section">
+            <div class="section-header"><span class="section-title">热门市场</span><span class="section-more">查看全部 →</span></div>
+            <div class="market-list">
+                <div class="market-item"><div class="market-img">🦄</div><div class="market-info"><div class="market-name">Unicornverse</div><div class="market-floor">Floor: 2.5 ETH</div></div><div class="market-price">2.5 ETH</div></div>
+                <div class="market-item"><div class="market-img">🐼</div><div class="market-info"><div class="market-name">Pudgy Animals</div><div class="market-floor">Floor: 1.8 ETH</div></div><div class="market-price">1.8 ETH</div></div>
+                <div class="market-item"><div class="market-img">👾</div><div class="market-info"><div class="market-name">Pixel Monsters</div><div class="market-floor">Floor: 0.9 ETH</div></div><div class="market-price">0.9 ETH</div></div>
             </div>
         </div>
     </div>
 
-    <!-- 热门市场 -->
-    <div class="section">
-        <div class="section-header">
-            <span class="section-title">热门市场</span>
-            <span class="section-more">查看全部 →</span>
+    <!-- 市场 -->
+    <div class="page" id="page-market">
+        <div class="top-bar">
+            <div class="search-box"><span>🔍</span><span>搜索NFT...</span></div>
         </div>
-        <div class="market-list">
-            <div class="market-item">
-                <div class="market-img">🦄</div>
-                <div class="market-info">
-                    <div class="market-name">Unicornverse</div>
-                    <div class="market-floor">Floor: 2.5 ETH</div>
-                </div>
-                <div class="market-price">2.5 ETH</div>
+        <div class="section">
+            <div class="section-header"><span class="section-title">热门合集</span><span class="section-more">→</span></div>
+            <div class="nft-scroll">
+                <div class="nft-card"><div class="nft-img">🦄</div><div class="nft-info"><div class="nft-name">Unicorn</div><div class="nft-price">2.5 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">🐼</div><div class="nft-info"><div class="nft-name">Pudgy</div><div class="nft-price">1.8 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">👾</div><div class="nft-info"><div class="nft-name">Pixels</div><div class="nft-price">0.9 ETH</div></div></div>
+                <div class="nft-card"><div class="nft-img">🐱</div><div class="nft-info"><div class="nft-name">Meebits</div><div class="nft-price">3.2 ETH</div></div></div>
             </div>
-            <div class="market-item">
-                <div class="market-img">🐼</div>
-                <div class="market-info">
-                    <div class="market-name">Pudgy Animals</div>
-                    <div class="market-floor">Floor: 1.8 ETH</div>
-                </div>
-                <div class="market-price">1.8 ETH</div>
-            </div>
-            <div class="market-item">
-                <div class="market-img">👾</div>
-                <div class="market-info">
-                    <div class="market-name">Pixel Monsters</div>
-                    <div class="market-floor">Floor: 0.9 ETH</div>
-                </div>
-                <div class="market-price">0.9 ETH</div>
+        </div>
+        <div class="section">
+            <div class="section-header"><span class="section-title">最新上架</span><span class="section-more">→</span></div>
+            <div class="market-list">
+                <div class="market-item"><div class="market-img">🌟</div><div class="market-info"><div class="market-name">Star Atlas #1024</div><div class="market-floor">ID: #1024</div></div><div class="market-price">2.5 ETH</div></div>
+                <div class="market-item"><div class="market-img">🔥</div><div class="market-info"><div class="market-name">Fire Dragon #256</div><div class="market-floor">ID: #256</div></div><div class="market-price">1.8 ETH</div></div>
+                <div class="market-item"><div class="market-img">💎</div><div class="market-info"><div class="market-name">Diamond #888</div><div class="market-floor">ID: #888</div></div><div class="market-price">5.0 ETH</div></div>
+                <div class="market-item"><div class="market-img">🎮</div><div class="market-info"><div class="market-name">Gaming Ape #512</div><div class="market-floor">ID: #512</div></div><div class="market-price">3.2 ETH</div></div>
             </div>
         </div>
     </div>
 
-    <!-- 底部导航 -->
+    <!-- 质押 -->
+    <div class="page" id="page-stake">
+        <div class="top-bar">
+            <div class="search-box"><span>🔍</span><span>搜索质押项目...</span></div>
+        </div>
+        <div class="stake-hero">
+            <div class="stake-label">我的质押总收益</div>
+            <div class="stake-value">12.45 ETH</div>
+            <div class="stake-apr">平均APY: 158.5%</div>
+        </div>
+        <div class="stake-list">
+            <div class="stake-item">
+                <div class="stake-header"><span class="stake-name">🦄 Unicorn质押池</span><span class="stake-badge">热门</span></div>
+                <div class="stake-stats"><div><div class="stake-stat-label">质押数量</div><div class="stake-stat-value">10 UN</div></div><div><div class="stake-stat-label">当前收益</div><div class="stake-stat-value">2.5 ETH</div></div><div><div class="stake-stat-label">APY</div><div class="stake-stat-value">185%</div></div></div>
+                <button class="stake-btn">质押详情</button>
+            </div>
+            <div class="stake-item">
+                <div class="stake-header"><span class="stake-name">🐼 Pudgy质押池</span><span class="stake-badge">🔥</span></div>
+                <div class="stake-stats"><div><div class="stake-stat-label">质押数量</div><div class="stake-stat-value">5 PB</div></div><div><div class="stake-stat-label">当前收益</div><div class="stake-stat-value">1.2 ETH</div></div><div><div class="stake-stat-label">APY</div><div class="stake-stat-value">145%</div></div></div>
+                <button class="stake-btn">质押详情</button>
+            </div>
+            <div class="stake-item">
+                <div class="stake-header"><span class="stake-name">💎 Diamond矿池</span><span class="stake-badge">💎</span></div>
+                <div class="stake-stats"><div><div class="stake-stat-label">质押数量</div><div class="stake-stat-value">20 DM</div></div><div><div class="stake-stat-label">当前收益</div><div class="stake-stat-value">8.75 ETH</div></div><div><div class="stake-stat-label">APY</div><div class="stake-stat-value">220%</div></div></div>
+                <button class="stake-btn">质押详情</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 预约 -->
+    <div class="page" id="page-reserve">
+        <div class="top-bar">
+            <div class="search-box"><span>🔍</span><span>搜索预约...</span></div>
+        </div>
+        <div class="reserve-hero">
+            <div class="reserve-title">即将开始</div>
+            <div class="reserve-countdown">03:15:28</div>
+            <p style="font-size:12px;color:var(--text-secondary)">距离下一个项目开启</p>
+        </div>
+        <div class="reserve-list">
+            <div class="reserve-item">
+                <div class="reserve-img">🚀</div>
+                <div class="reserve-info">
+                    <div class="reserve-name">Space Voyage Collection</div>
+                    <div class="reserve-time">明天 14:00 开抢</div>
+                </div>
+                <button class="reserve-btn">预约</button>
+            </div>
+            <div class="reserve-item">
+                <div class="reserve-img">🐉</div>
+                <div class="reserve-info">
+                    <div class="reserve-name">Dragon Kingdom</div>
+                    <div class="reserve-time">后天 20:00 开抢</div>
+                </div>
+                <button class="reserve-btn">预约</button>
+            </div>
+            <div class="reserve-item">
+                <div class="reserve-img">👽</div>
+                <div class="reserve-info">
+                    <div class="reserve-name">Alien World</div>
+                    <div class="reserve-time">3天后 12:00 开抢</div>
+                </div>
+                <button class="reserve-btn">预约</button>
+            </div>
+            <div class="reserve-item">
+                <div class="reserve-img">🎭</div>
+                <div class="reserve-info">
+                    <div class="reserve-name">Mystic Masks</div>
+                    <div class="reserve-time">5天后 18:00 开抢</div>
+                </div>
+                <button class="reserve-btn">预约</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 我的 -->
+    <div class="page" id="page-profile">
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-name">CryptoMaster</div>
+            <div class="profile-id">ID: 0x1234...5678</div>
+            <div class="profile-stats">
+                <div class="profile-stat"><div class="profile-stat-value">128</div><div class="profile-stat-label">NFT</div></div>
+                <div class="profile-stat"><div class="profile-stat-value">45.8</div><div class="profile-stat-label">ETH</div></div>
+                <div class="profile-stat"><div class="profile-stat-value">1.2K</div><div class="profile-stat-label">粉丝</div></div>
+            </div>
+        </div>
+        <div class="profile-menu">
+            <div class="menu-item"><div class="menu-icon">🖼️</div><span class="menu-text">我的NFT</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">💰</div><span class="menu-text">我的资产</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">📊</div><span class="menu-text">交易记录</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">⭐</div><span class="menu-text">我的收藏</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">🎨</div><span class="menu-text">创作中心</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">🎁</div><span class="menu-text">邀请好友</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">⚙️</div><span class="menu-text">设置</span><span class="menu-arrow">→</span></div>
+            <div class="menu-item"><div class="menu-icon">❓</div><span class="menu-text">帮助中心</span><span class="menu-arrow">→</span></div>
+        </div>
+    </div>
+
     <div class="tab-bar">
-        <div class="tab-item active">
-            <span class="tab-icon">🏠</span>
-            <span>首页</span>
-        </div>
-        <div class="tab-item">
-            <span class="tab-icon">🛍️</span>
-            <span>市场</span>
-        </div>
-        <div class="tab-item">
-            <span class="tab-icon">💎</span>
-            <span>质押</span>
-        </div>
-        <div class="tab-item">
-            <span class="tab-icon">👤</span>
-            <span>我的</span>
-        </div>
+        <div class="tab-item active" data-page="page-home"><span class="tab-icon">🏠</span><span>首页</span></div>
+        <div class="tab-item" data-page="page-market"><span class="tab-icon">🛍️</span><span>市场</span></div>
+        <div class="tab-item" data-page="page-stake"><span class="tab-icon">💎</span><span>质押</span></div>
+        <div class="tab-item" data-page="page-reserve"><span class="tab-icon">📅</span><span>预约</span></div>
+        <div class="tab-item" data-page="page-profile"><span class="tab-icon">👤</span><span>我的</span></div>
     </div>
 
     <div class="toast" id="toast">功能开发中...</div>
 
     <script>
-        document.querySelectorAll('.tab-item').forEach((item, index) => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-                item.classList.add('active');
+        const tabs = document.querySelectorAll('.tab-item');
+        const pages = document.querySelectorAll('.page');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const pageId = tab.dataset.page;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                pages.forEach(p => p.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
             });
         });
 
-        document.querySelectorAll('.icon-item, .assets-btn').forEach(btn => {
+        document.querySelectorAll('.icon-item, .assets-btn, .stake-btn, .reserve-btn, .menu-item').forEach(btn => {
             btn.addEventListener('click', () => {
                 const toast = document.getElementById('toast');
                 toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 1500);
+                setTimeout(() => toast.classList.remove('show'), 1500);
             });
         });
     </script>
